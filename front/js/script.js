@@ -1,6 +1,6 @@
 import Canape from "./models/canape.js";
 
-const sectionItems = document.getElementById('items');
+const sectionItems = document.querySelector('#items');
 let allCanape = [];
 
 fetch('http://localhost:3000/api/products').then((res) => {
@@ -27,7 +27,7 @@ function ajouterItems(item) {
     sectionItems.innerHTML += `
     <a href="./product.html?id=${item.id}">
         <article>
-            <img src="${item.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
+            <img src="${item.imageUrl}" alt="${item.altText}">
             <h3 class="productName">${item.nom}</h3>
             <p class="productDescription">${item.description}</p>
             <p>${item.prix}€</p>
