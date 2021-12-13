@@ -1,6 +1,6 @@
 import { getProductById } from "./api.js";
 import Canape from "./models/canape.js";
-import {getPanier, setPanier} from "./models/panier.js";
+import {getPanier, setPanier, verifQuantite} from "./models/panier.js";
 
 const parametreUrl = window.location.search;
 const urlSearch = new URLSearchParams(parametreUrl);
@@ -11,6 +11,7 @@ const titleCanap = document.querySelector('#title');
 const prixCanap = document.querySelector('#price');
 const descriptionCanap = document.querySelector('#description');
 const selectColorsCanap = document.querySelector('#colors');
+const inputQuantite = document.querySelector('#quantity');
 
 const btnAjouterPanier = document.querySelector('#addToCart');
 
@@ -49,11 +50,29 @@ function canapeDetail(canape){
         selectColorsCanap.innerHTML += `<option value="${element}">${element}</option>`
     });
 
-
 }
 
 btnAjouterPanier.addEventListener('click', () => {
     // console.log(event.target);
-    setPanier(canape);
-    panier = getPanier();
+    // console.log(selectColorsCanap.value);
+
+    canape.couleurChoisie = selectColorsCanap.value;
+
+    // console.log(inputQuantite.value)
+
+     let quantite = verifQuantite(inputQuantite.value);
+
+    //  console.log(quantite)
+
+    // console.log(canape);
+
+
+    if (selectColorsCanap.value !== ''){
+        setPanier(canape, quantite);
+        panier = getPanier();
+    } else {
+        alert('Vous devez choisir une couleur');
+    }
+
+    
 })
