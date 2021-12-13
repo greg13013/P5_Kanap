@@ -12,11 +12,11 @@ let quantiteTotal = 0;
 
 console.log(panier);
 
-panier.forEach(element => {
-    ajoutHTML(element);
+panier.forEach((element, index) => {
+    renderHTML(element);
 });
 
-function ajoutHTML(element) {
+function renderHTML(element) {
     sectionPanier.innerHTML +=
         `<article class="cart__item" data-id="${element.id}" data-color="${element.couleurChoisie}">
             <div class="cart__item__img">
@@ -42,33 +42,43 @@ function ajoutHTML(element) {
 
     prixTotal += element.prix * element.nbre;
     quantiteTotal += element.nbre;
+    ajoutEvent();
 }
 
 spanPrixTotal.innerHTML = prixTotal;
 spanQuantiteTotalArticle.innerHTML = quantiteTotal;
 
-const btnSupprimer = document.querySelectorAll('.deleteItem');
 
-btnSupprimer.forEach(element => {
-    element.addEventListener('click', (e) => {
 
-        console.log(e.target.dataset);
-        supprimerElementPanier(e.target.dataset.id, e.target.dataset.color);
+function ajoutEvent(){
+    let btnSupprimer = document.querySelectorAll('.deleteItem');
 
-        let newPanier = getPanier()
-        let newPrixTotal = 0;
-        let newQuantiteTotal = 0;
+    btnSupprimer.forEach(element => {
+        element.addEventListener('click', (e) => {
+    
+            console.log(e.target.dataset);
+            supprimerElementPanier(e.target.dataset.id, e.target.dataset.color);
+    
+            let newPanier = getPanier()
+            let newPrixTotal = 0;
+            let newQuantiteTotal = 0;
 
-        newPanier.forEach(element => {
-            newPrixTotal += element.prix * element.nbre;
-            newQuantiteTotal += element.nbre;
+    
+            sectionPanier.innerHTML = '';
+            newPanier.forEach(element => {
+                renderHTML(element);
+                newPrixTotal += element.prix * element.nbre;
+                newQuantiteTotal += element.nbre;
+            });
+    
+            spanPrixTotal.innerHTML = newPrixTotal;
+            spanQuantiteTotalArticle.innerHTML = newQuantiteTotal;
+    
         });
-
-        spanPrixTotal.innerHTML = newPrixTotal;
-        spanQuantiteTotalArticle.innerHTML = newQuantiteTotal;
-
     });
-});
+}
+
+
 
 
 
