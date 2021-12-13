@@ -1,6 +1,6 @@
 import { getProductById } from "./api.js";
 import Canape from "./models/canape.js";
-import {getPanier, setPanier, verifQuantite} from "./models/panier.js";
+import {getPanier, setPanier} from "./models/panier.js";
 
 const parametreUrl = window.location.search;
 const urlSearch = new URLSearchParams(parametreUrl);
@@ -50,6 +50,8 @@ function canapeDetail(canape){
         selectColorsCanap.innerHTML += `<option value="${element}">${element}</option>`
     });
 
+    inputQuantite.value = 1;
+
 }
 
 btnAjouterPanier.addEventListener('click', () => {
@@ -60,7 +62,7 @@ btnAjouterPanier.addEventListener('click', () => {
 
     // console.log(inputQuantite.value)
 
-     let quantite = verifQuantite(inputQuantite.value);
+     let quantite = Number(inputQuantite.value);
 
     //  console.log(quantite)
 

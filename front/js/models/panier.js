@@ -34,6 +34,23 @@ export function setPanier(product, quantite){
     
 }
 
-export function verifQuantite(quantite){
-    return Number(quantite < 1 ? 1 : quantite);
+export function supprimerElementPanier(id, color){
+
+    let panier = getPanier();
+    panier.forEach((element, index) => {
+        if (element.id === id && element.couleurChoisie === color){
+            
+            if (element.nbre > 1){
+                element.nbre--;
+            } else {
+                panier.splice(index, 1);
+            }
+            
+        }
+    });
+    localStorage.setItem('panier', JSON.stringify(panier));
 }
+
+// export function verifQuantite(quantite){
+//     return Number(quantite < 1 ? 1 : quantite);
+// }
