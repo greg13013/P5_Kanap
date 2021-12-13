@@ -17,6 +17,7 @@ renderHTML(panier);
 
 
 function renderHTML(panier) {
+    sectionPanier.innerHTML = '';
 
     panier.forEach(element => {
         sectionPanier.innerHTML +=
@@ -28,7 +29,8 @@ function renderHTML(panier) {
           <div class="cart__item__content__description">
             <h2>${element.nom}</h2>
             <p>${element.couleurChoisie}</p>
-            <p>${element.prix} €</p>
+            <p>${element.prix} € / unité</p>
+            <p>Prix : ${element.nbre * element.prix} €</p>
           </div>
           <div class="cart__item__content__settings">
             <div class="cart__item__content__settings__quantity">
@@ -62,17 +64,14 @@ function ajoutEvent() {
     btnSupprimer.forEach(element => {
         element.addEventListener('click', (e) => {
 
-            console.log(e.target.dataset);
+            // console.log(e.target.dataset);
             supprimerElementPanier(e.target.dataset.id, e.target.dataset.color);
 
-            let newPanier = getPanier()
+            // let newPanier = getPanier()
             prixTotal = 0;
             quantiteTotal = 0;
 
-
-            sectionPanier.innerHTML = '';
-
-            renderHTML(newPanier);
+            renderHTML(getPanier());
 
 
 

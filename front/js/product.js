@@ -27,7 +27,7 @@ getProductById(id).then((data) => {
 
     document.title = canape.nom;
 
-    canapeDetail(canape);
+    renderHTML(canape);
 
     // getPanier() ? panier = getPanier() : panier = [];
 
@@ -35,7 +35,7 @@ getProductById(id).then((data) => {
     console.log(error);
 })
 
-function canapeDetail(canape){
+function renderHTML(canape){
     imgCanap.innerHTML = `
     <img src="${canape.imageUrl}" alt="${canape.altText}">
     `;

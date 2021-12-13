@@ -1,18 +1,17 @@
 export default class Panier {
     constructor(
         produits
-    )
-    {
+    ) {
         this.produits = produits;
     }
 
 }
 
-export function getPanier(){
+export function getPanier() {
     return JSON.parse(localStorage.getItem('panier')) ? JSON.parse(localStorage.getItem('panier')) : [];
 }
 
-export function setPanier(product, quantite){
+export function setPanier(product, quantite) {
     let panier = getPanier();
     let findProduct = panier.find(element => element.id === product.id);
 
@@ -25,27 +24,27 @@ export function setPanier(product, quantite){
     } else {
         product.nbre = quantite;
         panier.push(product);
-        
+
     }
 
     console.log(panier);
     alert('Produit ajouté')
     localStorage.setItem('panier', JSON.stringify(panier));
-    
+
 }
 
-export function supprimerElementPanier(id, color){
+export function supprimerElementPanier(id, color) {
 
     let panier = getPanier();
     panier.forEach((element, index) => {
-        if (element.id === id && element.couleurChoisie === color){
-            
-            if (element.nbre > 1){
+        if (element.id === id && element.couleurChoisie === color) {
+
+            if (element.nbre > 1) {
                 element.nbre--;
             } else {
                 panier.splice(index, 1);
             }
-            
+
         }
     });
     localStorage.setItem('panier', JSON.stringify(panier));
