@@ -54,7 +54,19 @@ btnSupprimer.forEach(element => {
 
         console.log(e.target.dataset);
         supprimerElementPanier(e.target.dataset.id, e.target.dataset.color);
-       
+
+        let newPanier = getPanier()
+        let newPrixTotal = 0;
+        let newQuantiteTotal = 0;
+
+        newPanier.forEach(element => {
+            newPrixTotal += element.prix * element.nbre;
+            newQuantiteTotal += element.nbre;
+        });
+
+        spanPrixTotal.innerHTML = newPrixTotal;
+        spanQuantiteTotalArticle.innerHTML = newQuantiteTotal;
+
     });
 });
 
