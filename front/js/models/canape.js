@@ -16,5 +16,6 @@ export default class Canape {
         this.description = description;
         this.couleurs = couleurs;
         this.altText = altText;
+        this.nbre = 0;
     }
 }

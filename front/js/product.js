@@ -1,5 +1,6 @@
+import { getProductById } from "./api.js";
 import Canape from "./models/canape.js";
-import Panier from "./models/panier.js";
+import {getPanier, setPanier} from "./models/panier.js";
 
 const parametreUrl = window.location.search;
 const urlSearch = new URLSearchParams(parametreUrl);
@@ -18,12 +19,8 @@ let canape;
 
 console.log(id);
 
-fetch('http://localhost:3000/api/products/' + id).then((res) => {
-    if (res.ok) {
-        return res.json();
-    }
-}).then((data) => {
-    console.log(data);
+getProductById(id).then((data) => {
+
     canape = new Canape(data._id, data.name, data.price, data.imageUrl, data.description, data.colors, data.altTxt);
     console.log(canape);
 
@@ -31,7 +28,9 @@ fetch('http://localhost:3000/api/products/' + id).then((res) => {
 
     canapeDetail(canape);
 
-}).catch((error) => {
+    // getPanier() ? panier = getPanier() : panier = [];
+
+}).catch(error => {
     console.log(error);
 })
 
@@ -53,8 +52,8 @@ function canapeDetail(canape){
 
 }
 
-btnAjouterPanier.addEventListener('click', (event) => {
-    console.log(event.target);
-    panier.push(canape);
-    console.log(panier);
+btnAjouterPanier.addEventListener('click', () => {
+    // console.log(event.target);
+    setPanier(canape);
+    panier = getPanier();
 })
