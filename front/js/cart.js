@@ -1,4 +1,4 @@
-import { getPanier, supprimerElementPanier } from './models/panier.js'
+import { getPanier, supprimerElementPanier } from './models/panier.js';
 
 const sectionPanier = document.querySelector('#cart__items');
 const spanQuantiteTotalArticle = document.querySelector('#totalQuantity');
@@ -21,7 +21,24 @@ function renderHTML(panier) {
 
     panier.forEach(element => {
         sectionPanier.innerHTML +=
-            `<article class="cart__item" data-id="${element.id}" data-color="${element.couleurChoisie}">
+            buildArticleHTML(element);
+
+        prixTotal += element.prix * element.nbre;
+        quantiteTotal += element.nbre;
+        ajoutEvent();
+    });
+
+
+    spanPrixTotal.innerHTML = prixTotal;
+    spanQuantiteTotalArticle.innerHTML = quantiteTotal;
+}
+
+
+
+
+
+function buildArticleHTML(element) {
+    return `<article class="cart__item" data-id="${element.id}" data-color="${element.couleurChoisie}">
         <div class="cart__item__img">
           <img src="${element.imageUrl}" alt="${element.altText}">
         </div>
@@ -43,20 +60,7 @@ function renderHTML(panier) {
           </div>
         </div>
       </article>`;
-
-        prixTotal += element.prix * element.nbre;
-        quantiteTotal += element.nbre;
-        ajoutEvent();
-    })
-
-
-    spanPrixTotal.innerHTML = prixTotal;
-    spanQuantiteTotalArticle.innerHTML = quantiteTotal;
 }
-
-
-
-
 
 function ajoutEvent() {
     let btnSupprimer = document.querySelectorAll('.deleteItem');
@@ -64,8 +68,11 @@ function ajoutEvent() {
     btnSupprimer.forEach(element => {
         element.addEventListener('click', (e) => {
 
+            let idArticle = e.target.dataset.id;
+            let couleurArticle = e.target.dataset.color;
+          
             // console.log(e.target.dataset);
-            supprimerElementPanier(e.target.dataset.id, e.target.dataset.color);
+            supprimerElementPanier(idArticle, couleurArticle);
 
             // let newPanier = getPanier()
             prixTotal = 0;

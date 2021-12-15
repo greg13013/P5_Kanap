@@ -11,7 +11,7 @@ export function getPanier() {
     return JSON.parse(localStorage.getItem('panier')) ? JSON.parse(localStorage.getItem('panier')) : [];
 }
 
-export function setPanier(product, quantite) {
+export function ajouterArticle(product, quantite) {
     let panier = getPanier();
     let findProduct = panier.find(element => element.id === product.id);
 
@@ -28,7 +28,7 @@ export function setPanier(product, quantite) {
     }
 
     console.log(panier);
-    alert('Produit ajouté')
+    alert('Produit ajouté');
     localStorage.setItem('panier', JSON.stringify(panier));
 
 }
@@ -53,3 +53,4 @@ export function supprimerElementPanier(id, color) {
 // export function verifQuantite(quantite){
 //     return Number(quantite < 1 ? 1 : quantite);
 // }
+

@@ -1,6 +1,6 @@
 import { getProductById } from "./api.js";
 import Canape from "./models/canape.js";
-import {getPanier, setPanier} from "./models/panier.js";
+import { ajouterArticle} from "./models/panier.js";
 
 const parametreUrl = window.location.search;
 const urlSearch = new URLSearchParams(parametreUrl);
@@ -15,7 +15,7 @@ const inputQuantite = document.querySelector('#quantity');
 
 const btnAjouterPanier = document.querySelector('#addToCart');
 
-let panier = [];
+// let panier = []; //Check why this is not used !
 let canape;
 
 console.log(id);
@@ -33,21 +33,21 @@ getProductById(id).then((data) => {
 
 }).catch(error => {
     console.log(error);
-})
+});
 
 function renderHTML(canape){
     imgCanap.innerHTML = `
     <img src="${canape.imageUrl}" alt="${canape.altText}">
     `;
 
-    titleCanap.innerHTML = canape.nom;
+    titleCanap.innerHTML = canape.nom; 
 
     prixCanap.innerHTML = canape.prix;
 
     descriptionCanap.innerHTML = canape.description;
 
     canape.couleurs.forEach(element => {
-        selectColorsCanap.innerHTML += `<option value="${element}">${element}</option>`
+        selectColorsCanap.innerHTML += `<option value="${element}">${element}</option>`;
     });
 
     inputQuantite.value = 1;
@@ -62,7 +62,7 @@ btnAjouterPanier.addEventListener('click', () => {
 
     // console.log(inputQuantite.value)
 
-     let quantite = Number(inputQuantite.value);
+    let quantite = Number(inputQuantite.value);
 
     //  console.log(quantite)
 
@@ -70,11 +70,11 @@ btnAjouterPanier.addEventListener('click', () => {
 
 
     if (selectColorsCanap.value !== ''){
-        setPanier(canape, quantite);
-        panier = getPanier();
+        ajouterArticle(canape, quantite);
+        // panier = getPanier();
     } else {
         alert('Vous devez choisir une couleur');
     }
 
     
-})
+});

@@ -9,12 +9,12 @@ getAllProducts().then((data) => {
         let canape = new Canape(element._id, element.name, element.price, element.imageUrl, element.description, element.colors, element.altTxt);
         allCanape.push(canape);
         ajouterItemsHTML(canape);
-    })
+    });
     console.log(allCanape);
+    console.table(allCanape);
 }).catch(error => {
     console.log(error);
 });
-
 
 function ajouterItemsHTML(item) {
 
@@ -26,7 +26,7 @@ function ajouterItemsHTML(item) {
             <p class="productDescription">${item.description}</p>
             <p>${item.prix}€</p>
         </article>
-    </a>`
-};
+    </a>`;
+}
 
 
