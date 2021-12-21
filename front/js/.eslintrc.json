@@ -11,7 +11,7 @@
     "rules": {  /*https://eslint.org/docs/user-guide/configuring/rules*/
         "indent": [ /* indentation 4 espaces sinon erreurs*/
             "error",
-            4
+            2
         ],
         "semi": [ /* point virgules pour marquer la fin des instructions*/
             "error",

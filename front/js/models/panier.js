@@ -1,10 +1,10 @@
 export default class Panier {
     constructor(
         produits,
-        nbre
+        quantite
     ) {
         this.produits = produits;
-        this.nbre = nbre;
+        this.quantite = quantite;
     }
 
 }
