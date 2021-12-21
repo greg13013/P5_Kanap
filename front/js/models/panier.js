@@ -1,8 +1,10 @@
 export default class Panier {
     constructor(
-        produits
+        produits,
+        nbre
     ) {
         this.produits = produits;
+        this.nbre = nbre;
     }
 
 }
@@ -13,17 +15,18 @@ export function getPanier() {
 
 export function ajouterArticle(product, quantite) {
     let panier = getPanier();
-    let findProduct = panier.find(element => element.id === product.id);
+    let findProduct = panier.find(element => element.canape.id === product.id && element.canape.couleurChoisie === product.couleurChoisie);
 
     // console.log(panier);
     // console.log(product);
+    // console.log(findProduct);
 
-    if (findProduct && findProduct.couleurChoisie === product.couleurChoisie) {
-        panier.find(element => element.id === product.id).nbre = Number(findProduct.nbre) + quantite;
+    if (findProduct) {
+        panier.find(element => element.canape.id === product.id && element.canape.couleurChoisie === product.couleurChoisie).quantite = Number(findProduct.quantite) + quantite;
 
     } else {
-        product.nbre = quantite;
-        panier.push(product);
+        // product.nbre = quantite;
+        panier.push({canape: product, quantite: quantite});
 
     }
 
@@ -37,10 +40,10 @@ export function supprimerElementPanier(id, color) {
 
     let panier = getPanier();
     panier.forEach((element, index) => {
-        if (element.id === id && element.couleurChoisie === color) {
+        if (element.canape.id === id && element.canape.couleurChoisie === color) {
 
-            if (element.nbre > 1) {
-                element.nbre--;
+            if (element.quantite > 1) {
+                element.quantite--;
             } else {
                 panier.splice(index, 1);
             }
