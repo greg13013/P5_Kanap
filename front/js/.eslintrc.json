@@ -9,9 +9,10 @@
         "sourceType": "module"
     },
     "rules": {  /*https://eslint.org/docs/user-guide/configuring/rules*/
-        "indent": [ /* indentation 4 espaces sinon erreurs*/
+        "indent": [ /* indentation 2 espaces sinon erreurs*/
             "error",
-            2
+            2,
+            {"SwitchCase": 1}
         ],
         "semi": [ /* point virgules pour marquer la fin des instructions*/
             "error",
