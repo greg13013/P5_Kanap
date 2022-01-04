@@ -29,7 +29,7 @@ console.log(window.location.pathname.split("/").pop());
 
 
 //Verification de la page actuel
-if (window.location.pathname === 'confirmation.html') {
+if (window.location.pathname.split("/").pop() === 'confirmation.html') {
   console.log('la');
   const orderID = document.querySelector("#orderId");
   orderID.innerHTML = `${JSON.parse(localStorage.getItem('order')).orderId}`;
