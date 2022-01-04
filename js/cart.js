@@ -25,7 +25,7 @@ let prixTotal = 0;
 let quantiteTotal = 0;
 
 console.log(panier);
-console.log(window.location.pathname.lastIndexOf('/'));
+console.log(window.location.pathname.split("/").pop());
 
 
 //Verification de la page actuel
