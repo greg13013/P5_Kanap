@@ -21,7 +21,7 @@ getAllProducts().then((data) => {
 function ajouterItemsHTML(item) {
 
   sectionItems.innerHTML += `
-    <a href="./product.html?id=${item.id}">
+    <a href="./html/product.html?id=${item.id}">
         <article>
             <img src="${item.imageUrl}" alt="${item.altText}">
             <h3 class="productName">${item.nom}</h3>
