@@ -31,8 +31,6 @@ getProductById(id).then((data) => {
 
   renderHTML(canape);
 
-  // getPanier() ? panier = getPanier() : panier = [];
-
 }).catch(error => {
   console.log(error);
 });

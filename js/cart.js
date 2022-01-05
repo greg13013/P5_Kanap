@@ -1,5 +1,5 @@
 import { postProduct } from "./api.js";
-import { getPanier, supprimerElementPanier } from "./models/panier.js";
+import { getPanier, supprimerElementPanier, setQuantite } from "./models/panier.js";
 
 const sectionPanier = document.querySelector("#cart__items");
 const spanQuantiteTotalArticle = document.querySelector("#totalQuantity");
@@ -33,7 +33,6 @@ if (window.location.pathname.split("/").pop() === 'confirmation.html') {
   console.log('la');
   const orderID = document.querySelector("#orderId");
   orderID.innerHTML = `${JSON.parse(localStorage.getItem('order')).orderId}`;
-
 
   localStorage.removeItem('order');
   localStorage.removeItem('panier');
@@ -143,6 +142,8 @@ if (window.location.pathname.split("/").pop() === 'confirmation.html') {
 //Rendu HTML de la partie dynamique de la page
 function renderHTML(panier) {
   sectionPanier.innerHTML = "";
+  prixTotal = 0;
+  quantiteTotal = 0;
 
   panier.forEach((element) => {
     sectionPanier.innerHTML += buildArticleHTML(element);
@@ -167,12 +168,12 @@ function buildArticleHTML(element) {
   <h2>${element.canape.nom}</h2>
   <p>${element.canape.couleurChoisie}</p>
   <p>${element.canape.prix} € / unité</p>
-  <p>Prix : ${element.quantite * element.canape.prix} €</p>
+  <p id="prixArticle">Prix : ${element.quantite * element.canape.prix} €</p>
   </div>
   <div class="cart__item__content__settings">
   <div class="cart__item__content__settings__quantity">
   <p>Qté : </p>
-  <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantite}">
+  <input data-id="${element.canape.id}" data-color="${element.canape.couleurChoisie}" type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantite}">
   </div>
   <div class="cart__item__content__settings__delete">
   <p data-id="${element.canape.id}" data-color="${element.canape.couleurChoisie}" class="deleteItem">Supprimer</p>
@@ -184,6 +185,22 @@ function buildArticleHTML(element) {
 
 //Ajout evenement pour tous les boutons supprimer des articles et maj de l'html
 function ajoutEvent() {
+
+  let inputNumberArticle = document.querySelectorAll('.itemQuantity');
+
+  inputNumberArticle.forEach((elementInput) => {
+
+    elementInput.addEventListener('change', (e) => {
+      console.log(e);
+      let idArticle = e.target.dataset.id;
+      let couleurArticle = e.target.dataset.color;
+  
+      setQuantite(idArticle, couleurArticle, e.target.value);
+    
+      renderHTML(getPanier());
+    });
+  });
+
   let btnSupprimer = document.querySelectorAll(".deleteItem");
 
   btnSupprimer.forEach((element) => {
