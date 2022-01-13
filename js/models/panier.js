@@ -3,6 +3,8 @@ export function getPanier() {
   return JSON.parse(localStorage.getItem('panier')) ? JSON.parse(localStorage.getItem('panier')) : [];
 }
 
+
+
 //Ajout article au panier dans le localStorage
 export function ajouterArticle(product, quantite) {
   let panier = getPanier();
@@ -21,11 +23,11 @@ export function ajouterArticle(product, quantite) {
 
   }
 
-  console.log(panier);
   alert('Produit ajouté');
   localStorage.setItem('panier', JSON.stringify(panier));
-
 }
+
+
 
 //Supprime l'article selon son id et sa couleur du panier et maj du localStorage
 export function supprimerElementPanier(id, color) {
@@ -46,20 +48,17 @@ export function supprimerElementPanier(id, color) {
   localStorage.setItem('panier', JSON.stringify(panier));
 }
 
+
+
 //Met a jour la quantite de l'article
 export function setQuantite(id, color, newQuantite) {
   let panier = getPanier();
 
-  console.log(id, color);
-  // panier.find(element => console.log(element.canape.id));
-  // console.log(panier.find(element => element.canape.id === product.canape.id && element.canape.couleurChoisie === product.canape.couleurChoisie));
-
   //Met a jour la quantite de l'article dans la panier
   panier.find((element, index) => {
     if (element.canape.id === id && element.canape.couleurChoisie === color) {
-      console.log(element);
+
       panier[index].quantite = Number(newQuantite);
-      // console.log(panier[index]);
     }
   });
 

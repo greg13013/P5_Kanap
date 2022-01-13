@@ -11,8 +11,7 @@ getAllProducts().then((data) => {
     allCanape.push(canape);
     ajouterItemsHTML(canape);
   });
-  console.log(allCanape);
-  console.table(allCanape);
+
 }).catch(error => {
   console.log(error);
 });

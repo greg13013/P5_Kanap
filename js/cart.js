@@ -24,17 +24,19 @@ let panier = getPanier();
 let prixTotal = 0;
 let quantiteTotal = 0;
 
-console.log(panier);
-console.log(window.location.pathname.split("/").pop());
-
 
 //Verification de la page actuel
 if (window.location.pathname.split("/").pop() === 'confirmation.html') {
-  console.log('la');
-  const orderID = document.querySelector("#orderId");
-  orderID.innerHTML = `${JSON.parse(localStorage.getItem('order')).orderId}`;
 
-  localStorage.removeItem('order');
+
+  //Récupération orderID depuis l'URL
+  const parametreUrl = window.location.search;
+  const urlSearch = new URLSearchParams(parametreUrl);
+  const orderID = urlSearch.get('orderId');
+
+  const htmlOrderID = document.querySelector("#orderId");
+  htmlOrderID.innerHTML = orderID;
+
   localStorage.removeItem('panier');
 } else {
 
@@ -99,8 +101,6 @@ if (window.location.pathname.split("/").pop() === 'confirmation.html') {
         : styleSansErreurForm;
     }
 
-    console.log(erreurForm);
-
     if (!erreurForm) {
 
       //Aucune erreur création de l'objet contact et du tableau d'id
@@ -118,16 +118,12 @@ if (window.location.pathname.split("/").pop() === 'confirmation.html') {
 
       let data;
       data = { contact: contact, products: idProduit };
-      // data = [contact];
-
-      console.log(data);
 
       //Envoi du produit à l'API et récupération du numéro de commande puis changement de page
       postProduct(data)
         .then((element) => {
-          console.log(element);
-          localStorage.setItem('order', JSON.stringify(element));
-          window.location.href = '../html/confirmation.html';
+
+          window.location.href = '../html/confirmation.html?orderId='+element.orderId;
         })
         .catch((error) => {
           console.log(error);
@@ -191,7 +187,7 @@ function ajoutEvent() {
   inputNumberArticle.forEach((elementInput) => {
 
     elementInput.addEventListener('change', (e) => {
-      console.log(e);
+
       let idArticle = e.target.dataset.id;
       let couleurArticle = e.target.dataset.color;
   
@@ -324,14 +320,4 @@ function verifForm(e) {
     default:
 
   }
-
-  // if (verifTexte(e.target.value)) {
-  //   btnCommander.disabled = false;
-  //   e.target.style.boxShadow = styleSansErreurForm;
-  // } else {
-  //   btnCommander.disabled = true;
-  //   e.target.style.boxShadow = styleErreurForm;
-  // }
-  // console.log(msgErreur);
-  // erreurForm = erreur;
 }

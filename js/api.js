@@ -7,7 +7,6 @@ export function getAllProducts() {
     fetch(baseURL)
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res.json();
         }
       })
